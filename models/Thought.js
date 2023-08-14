@@ -34,6 +34,11 @@ const thoughtSchema = new Schema(
         // Embed the reactions using the reaction schema.
         reactions: [reactionSchema]
     },
+    {
+        timestamps: true, // Include timestamps for createdAt and updatedAt.
+        toJSON: { virtuals: true }, // Include virtuals when document is converted to JSON.
+        id: false, // Don't include the default virtual id.
+    }
 );
 
 // Create a virtual property to retrieve the number of reactions for a thought.

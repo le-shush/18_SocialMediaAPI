@@ -24,10 +24,16 @@ const userSchema = new Schema(
         },
         
         // Array to store references to user's thoughts.
-        thoughts: [{ type: Schema.Types.ObjectId, ref: 'thought'}],
+        thoughts: [{ 
+            type: Schema.Types.ObjectId, 
+            ref: 'thought'
+        }],
         
         // Array to store references to user's friends.
-        friends: [{ type: Schema.Types.ObjectId, ref: 'user'}]
+        friends: [{ 
+            type: Schema.Types.ObjectId, 
+            ref: 'user'
+        }]
     },
     {
         // Configuration to include virtuals when the document is converted to JSON.
