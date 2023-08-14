@@ -1,40 +1,53 @@
 const { Schema, model } = require('mongoose');
 
-// Schema to create a course model
-const courseSchema = new Schema(
-  {
-    courseName: {
-      type: String,
-      required: true,
+// Import the unique validator to ensure unique fields in the database.
+const uniqueValidator = require('mongoose-unique-validator');
+
+// Define the schema for the user.
+const userSchema = new Schema(
+    {
+        // Define the username field with properties.
+        username: { type: String, required: true, unique: true, trim: true },
+        
+        // Define the email field with properties and validation.
+        email: { 
+            type: String, 
+            required: [true, "Email required"], 
+            unique: true, 
+            validate: {
+                // Use a regex pattern to validate email since mongoose doesn't have a built-in validator.
+                validator: function (v) {
+                    return /^([a-z0-9_\.-]+)@([\da-z\.-]+)\.([a-z\.]{2,6})$/.test(v)
+                },
+                message: 'Please enter a valid mail'
+            },
+        },
+        
+        // Array to store references to user's thoughts.
+        thoughts: [{ type: Schema.Types.ObjectId, ref: 'thought'}],
+        
+        // Array to store references to user's friends.
+        friends: [{ type: Schema.Types.ObjectId, ref: 'user'}]
     },
-    inPerson: {
-      type: Boolean,
-      default: true,
-    },
-    startDate: {
-      type: Date,
-      default: Date.now(),
-    },
-    endDate: {
-      type: Date,
-      // Sets a default value of 12 weeks from now
-      default: () => new Date(+new Date() + 84 * 24 * 60 * 60 * 1000),
-    },
-    students: [
-      {
-        type: Schema.Types.ObjectId,
-        ref: 'Student',
-      },
-    ],
-  },
-  {
-    toJSON: {
-      virtuals: true,
-    },
-    id: false,
-  }
+    {
+        // Configuration to include virtuals when the document is converted to JSON.
+        toJSON: { virtuals: true },
+        id: false, 
+    }
 );
 
-const Course = model('course', courseSchema);
+// Create a virtual property to retrieve the count of friends for a user.
+userSchema
+    .virtual('friendsCount')
+    .get(function () {
+        return this.friends.length;
+    });
 
-module.exports = Course;
+// Attach the uniqueValidator plugin to the userSchema to ensure unique fields.
+userSchema.plugin(uniqueValidator);
+
+// Create the User model using the defined schema.
+const User = model('user', userSchema);
+
+// Export the User model.
+module.exports = User;
