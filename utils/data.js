@@ -75,24 +75,23 @@ const names = [
 ];
 
 const appDescriptions = [
-  'Decision Tracker',
-  'Find My Phone',
-  'Learn Piano',
-  'Starbase Defender',
-  'Tower Defense',
-  'Monopoly Money Manager',
-  'Movie trailers',
-  'Hello world',
-  'Stupid Social Media App',
-  'Notes',
-  'Messages',
-  'Email',
-  'Compass',
-  'Firefox',
-  'Running app',
-  'Cooking app',
-  'Poker',
-  'Deliveries',
+  // Give a random list of thoughts
+  'I love the smell of fresh cut grass.',
+  'I love the smell of napalm in the morning.',
+  'I love the smell of a new car.',
+  'I love the smell of a new book.',
+  'I love the smell of a new baby.',
+  'I love the smell of a new pair of shoes.',
+  'I love the smell of a new pair of socks.',
+  'I love the smell of a new pair of jeans.',
+  'I love the smell of a new pair of underwear.',
+  'I love the smell of a new pair of socks.',
+  'I love the felling of the wind in my hair.',
+  'I love the felling of the sun on my face.',
+  'I love the felling of the rain on my skin.',
+  'I love the felling of the snow on my skin.',
+  'I love the felling of the sand on my feet.',
+  'I love the felling of the grass on my feet.',
 ];
 
 // Get a random item given an array
@@ -103,7 +102,7 @@ const getRandomName = () =>
   `${getRandomArrItem(names)} ${getRandomArrItem(names)}`;
 
 // Function to generate random assignments that we can add to student object.
-const getRandomAssignments = (int) => {
+const getRandomReactions = (int) => {
   const results = [];
   for (let i = 0; i < int; i++) {
     results.push({
@@ -115,4 +114,4 @@ const getRandomAssignments = (int) => {
 };
 
 // Export the functions for use in seed.js
-module.exports = { getRandomName, getRandomAssignments };
+module.exports = { getRandomName, getRandomReactions };
