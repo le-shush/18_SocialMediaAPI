@@ -1,25 +1,14 @@
-const { ObjectId } = require('mongoose').Types;
+// const { ObjectId } = require('mongoose').Types;
 const { User, Thought } = require('../models');
-
-// Aggregate function to get the number of users overall
-const headCount = async () => {
-  const numberOfUsers = await User.aggregate()
-    .count('userCount');
-  return numberOfUsers;
-}
 
 module.exports = {
   // Get all users
-  async getUsers(req, res) {
+  async getUsers(req,res) {
+    // console.log('getUsers');
     try {
       const users = await User.find();
-
-      const userObj = {
-        users,
-        headCount: await headCount(),
-      };
-
-      res.json(userObj);
+  
+      res.json(users);
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);
@@ -35,10 +24,7 @@ module.exports = {
         return res.status(404).json({ message: 'No user with that ID' })
       }
 
-      res.json({
-        user,
-        grade: await grade(req.params.userId),
-      });
+      res.json({user, message: 'User found'});
     } catch (err) {
       console.log(err);
       return res.status(500).json(err);

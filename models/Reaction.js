@@ -4,11 +4,6 @@ const { Schema } = require('mongoose');
 // Define the schema for reactions.
 const reactionSchema = new Schema(
     {
-        // Define the unique ID for the reaction with a default value.
-        reactionId: {
-            type: Schema.Types.ObjectId,
-            default: () => new Types.ObjectId(), // Default to a new unique ObjectId.
-        },
         
         // Define the content of the reaction with a maximum length constraint.
         reactionBody: {
@@ -32,7 +27,11 @@ const reactionSchema = new Schema(
                 return date.toLocaleDateString();
             },
         }
-    }
+    },
+    {
+        toJSON: { virtuals: true },
+        id: false,
+    },
 );
 
 // Export the reaction schema for use in other parts of the application.

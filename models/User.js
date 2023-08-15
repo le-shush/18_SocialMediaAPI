@@ -39,7 +39,7 @@ const userSchema = new Schema(
         // Configuration to include virtuals when the document is converted to JSON.
         toJSON: { virtuals: true },
         id: false, 
-    }
+    },
 );
 
 // Create a virtual property to retrieve the count of friends for a user.
