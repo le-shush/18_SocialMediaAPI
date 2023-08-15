@@ -40,7 +40,7 @@ connection.once('open', async () => {
   }
 
   // Add students to the collection and await the results
-  await User.collection.insertMany(students);
+  await User.collection.insertMany(users);
 
   // Add courses to the collection and await the results
   await Thought.collection.insertOne({
